@@ -96,8 +96,7 @@ if __name__ == "__main__":
         if t == 0:
             continue
 
-        # alphas = compute_alpha(t, x_t, A, B, alpha_matrix).round(3)
-        alphas = compute_alpha(t, x_t, A, B, alpha_matrix).round(3)
+        alphas = compute_alpha_vec(t, x_t, A, B, alpha_matrix).round(3)
         alpha_matrix[t, :] = alphas
 
     print(alpha_matrix.T)
