@@ -52,6 +52,7 @@ def compute_alpha(t, x_t, A, B, alpha_matrix):
     Return:
     alphas       -- A list of alpha values corresponding to each state y_t 
     """
+
     n_states = A.shape[0]
     alphas = np.zeros((1, n_states))
 
@@ -96,7 +97,7 @@ if __name__ == "__main__":
         if t == 0:
             continue
 
-        alphas = compute_alpha_vec(t, x_t, A, B, alpha_matrix).round(3)
+        alphas = compute_alpha_vec(t, x_t, A, B, alpha_matrix).round(6)
         alpha_matrix[t, :] = alphas
 
     print(alpha_matrix.T)
