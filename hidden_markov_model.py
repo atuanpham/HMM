@@ -1,9 +1,9 @@
 import numpy as np
 
 # Distinct states of Markov process
-states = ["TV", "Pub", "Party", "Study"]
+states = np.array(["TV", "Pub", "Party", "Study"])
 # Set of possible observations
-observations = ["Tired", "Hungover", "Scared", "Fine"]
+observations = np.array(["Tired", "Hungover", "Scared", "Fine"])
 
 # State Transition Matrix A has size (n_states, n_states)
 #
@@ -88,6 +88,26 @@ def compute_alpha_vec(t, x_t, A, B, alpha_matrix):
 
     return alphas
 
+def find_the_most_likely_state_seq(alpha_matrix, state_labels=None):
+    """
+    Find the most likely series of states.
+    It will re-use the result of Forward Algorithm (alpha_matrix).
+
+    Arguments:
+    alpha_matrix -- Alpha values computed by Forward Algorithm.
+    state_labels -- List of state names.
+
+    Return:
+    state_seq    -- List of the most like states.
+    """
+
+    state_seq = np.argmax(alpha_matrix, axis=1)
+
+    if state_labels is not None:
+        state_seq = states[state_seq]
+
+    return state_seq
+
 
 if __name__ == "__main__":
 
@@ -100,5 +120,10 @@ if __name__ == "__main__":
         alphas = compute_alpha_vec(t, x_t, A, B, alpha_matrix).round(6)
         alpha_matrix[t, :] = alphas
 
+    state_seq = find_the_most_likely_state_seq(alpha_matrix, states)
+
+    print("Alpha matrix:")
     print(alpha_matrix.T)
+
+    print("The most likely state sequence: " + str(state_seq))
 
