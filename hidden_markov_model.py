@@ -148,12 +148,12 @@ if __name__ == "__main__":
         back_pointer_matrix[t, :] = back_pointer
 
     # Backtrace process
-    probable_seq = np.zeros(len(x))
+    probable_seq = np.zeros(len(x), dtype=int)
     probable_seq[-1] = np.argmax(v_matrix[-1, :])
     for t in range(len(x) - 1, 0, -1):
         probable_seq[t - 1] = back_pointer_matrix[t, probable_seq[t]]
 
-    probable_seq = states[probable_seq.astype(int)]
+    probable_seq = states[probable_seq]
 
     print("Alpha matrix:")
     print(alpha_matrix.T)
