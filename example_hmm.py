@@ -16,21 +16,20 @@ if __name__ == "__main__":
                      [0, 0, 1, 1, 0, 1],
                      [0, 1, 1, 1, 0, 0]], dtype=int)
 
-
-    state_sequences = np.array([[0, 1, 0, 0, 1, 0],
-                                [1, 0, 1, 0, 1, 0],
-                                [1, 0, 0, 1, 1, 0],
-                                [1, 0, 1, 1, 1, 0],
-                                [1, 0, 0, 1, 0, 1],
-                                [0, 0, 1, 0, 0, 1],
-                                [0, 0, 1, 1, 0, 1],
-                                [0, 1, 1, 1, 0, 0]], dtype=int)
-
-    output = train(2, data, 1000)
+    output = train(2, data)
     
+    print("Initial matrix A:")
+    print(output["initial_A"])
+    print("Initial matrix B:")
+    print(output["initial_B"])
+
+    print("The trained matrix A:")
     print(output["A"])
+    print("The trained matrix B:")
     print(output["B"])
-    print(output["start_prob"])
-    print(output["logs"][2])
-    print(output["logs"][1][-1])
+
+    print("Initial probability distribution: {}".format(output["start_prob"]))
+    print("Diff log: {}".format(output["diff_logs"]))
+
+    print("State sequence: {}".format(output["state_seq_logs"][-1]))
 

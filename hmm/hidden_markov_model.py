@@ -100,13 +100,9 @@ def train(n_states, obs, n_iter=50):
 
     # Initialization step:
     A, B = initialize_params(n_states, n_observations)
+    initial_A, initial_B = A, B
     start_prob = np.ndarray(n_states)
     start_prob[:] = 1 / n_states
-
-    print("Init A:")
-    print(A)
-    print("Init B:")
-    print(B)
 
     param_logs = []
     state_seq_logs = []
@@ -114,13 +110,10 @@ def train(n_states, obs, n_iter=50):
 
     for i in range(n_iter):
 
-        print("Iteration: {}".format(str(i)))
-
         # Find the most likely state sequences corresponding to {A, B}
         state_sequences = []
         for o in obs:
             initial_prob = start_prob * B[:, o[0]]
-            print(initial_prob)
             _, _, probable_seq = find_most_likely_path(o, A, B, initial_prob)
             state_sequences.append(probable_seq)
 
@@ -136,6 +129,11 @@ def train(n_states, obs, n_iter=50):
         if diff == 0:
             break
 
-    return {"A": A, "B": B, "start_prob": start_prob,
-            "logs": (param_logs, state_seq_logs, diff_logs)}
+    return {"initial_A": initial_A,
+            "initial_B": initial_B,
+            "A": A, "B": B,
+            "start_prob": start_prob,
+            "param_logs": param_logs,
+            "state_seq_logs":state_seq_logs,
+            "diff_logs": diff_logs}
 
