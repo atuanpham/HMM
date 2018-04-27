@@ -1,5 +1,5 @@
 import numpy as np
-from hmm.hidden_markov_model import train, count_emission_pairs
+from hmm.hidden_markov_model import train, compute_initial_prob
 
 
 if __name__ == "__main__":
@@ -30,6 +30,7 @@ if __name__ == "__main__":
     
     print(output["A"])
     print(output["B"])
+    print(output["start_prob"])
     print(output["logs"][2])
     print(output["logs"][1][-1])
 
